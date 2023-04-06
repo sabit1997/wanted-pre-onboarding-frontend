@@ -1,0 +1,21 @@
+@import url('../font/font.css');
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    line-height: 1.25;
+    font-family: 'SpoqaHanSansNeo-R';
+    background-color: white;
+}
+
+.ir {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+}
