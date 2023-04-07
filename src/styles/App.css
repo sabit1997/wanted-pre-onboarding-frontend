@@ -38,6 +38,14 @@
   background-color: #e0b1cb;
 }
 
+.input-error {
+  border: 1px solid red;
+}
+
+.input-pass {
+  border: 1px solid greenyellow;
+}
+
 .form-button {
   width: 250px;
   height: 30px;
