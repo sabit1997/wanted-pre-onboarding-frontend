@@ -27,7 +27,16 @@ const SideBar: React.FC<SideBarProps> = ({ sidebarContent }) => {
           );
         })}
       </ul>
-      <div>User Profile</div>
+      <div
+        onClick={() => {
+          if (localStorage.getItem('toekn') !== null) {
+            localStorage.removeItem('token');
+            routeTo('/signin');
+          }
+        }}
+      >
+        Logout
+      </div>
     </div>
   );
 };
