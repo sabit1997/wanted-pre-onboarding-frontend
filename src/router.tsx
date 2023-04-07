@@ -3,6 +3,7 @@ import { Router as RemixRouter } from '@remix-run/router/dist/router';
 import Home from 'pages/Home';
 import SignUp from 'pages/SignUp';
 import SignIn from 'pages/SignIn';
+import GeneralLayout from 'layout/GeneralLayout';
 
 interface RouterElement {
   id: number;
@@ -31,3 +32,32 @@ const routerData: RouterElement[] = [
     element: <SignUp />,
   },
 ];
+
+export const routers: RemixRouter = createBrowserRouter(
+  routerData.map((router) => {
+    return {
+      path: router.path,
+      element: <GeneralLayout>{router.element}</GeneralLayout>,
+    };
+  })
+);
+
+export interface SidebarElement {
+  id: number;
+  label: string;
+  path: string;
+}
+
+export const SidebarContent: SidebarElement[] = routerData.reduce(
+  (prev, router) => {
+    return [
+      ...prev,
+      {
+        id: router.id,
+        path: router.path,
+        label: router.label,
+      },
+    ];
+  },
+  [] as SidebarElement[]
+);
