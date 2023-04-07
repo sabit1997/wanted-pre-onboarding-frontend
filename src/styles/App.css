@@ -5,7 +5,6 @@
 
 .page-header {
   width: 100%;
-  padding: 30px 0;
   border-bottom: 1px solid #eaeaea;
 }
 
@@ -69,7 +68,7 @@
 .sidebar {
   width: 150px;
   height: 100vh;
-  padding-left: 10px;
+  padding: 40px 0 0 10px;
   border-right: 1px solid #eaeaea;
 }
 
@@ -92,4 +91,15 @@
 .sidebar .sidebar-list .sidebar-menu:hover {
   background-color: #9f86c0;
   color: #fff;
+}
+
+.general-layout {
+  height: 100vh;
+  display: flex;
+}
+
+.general-layout-body {
+  margin: 0 auto;
+  width: 640px;
+  padding: 80px 20px;
 }
