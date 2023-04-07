@@ -1,13 +1,35 @@
-export default function SideBar() {
+import { useRouter } from 'hooks/useRouter';
+import { SidebarElement } from 'router';
+
+interface SideBarProps {
+  sidebarContent: SidebarElement[];
+}
+
+const SideBar: React.FC<SideBarProps> = ({ sidebarContent }) => {
+  const { currentPath, routeTo } = useRouter();
+
+  const sidebarMenuClickHandler = (path: string) => {
+    routeTo(path);
+  };
   return (
     <div className="sidebar">
       <h2 className="sidebar-title">ToDo</h2>
       <ul className="sidebar-list">
-        <li className="sidebar-menu">Home</li>
-        <li className="sidebar-menu">Sign In</li>
-        <li className="sidebar-menu">Sign Up</li>
+        {sidebarContent.map((element) => {
+          return (
+            <li
+              key={element.path}
+              className="sidebar-menu"
+              onClick={() => sidebarMenuClickHandler(element.path)}
+            >
+              {element.label}
+            </li>
+          );
+        })}
       </ul>
       <div>User Profile</div>
     </div>
   );
-}
+};
+
+export default SideBar;
