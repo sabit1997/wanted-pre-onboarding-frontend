@@ -2,7 +2,7 @@ export default function SignIn() {
   return (
     <div className="page-wrapper">
       <header className="page-header">
-        <h1 className="page-Title">Sign In</h1>
+        <h1 className="page-title">Sign In</h1>
       </header>
       <main className="page-main">
         <form>
