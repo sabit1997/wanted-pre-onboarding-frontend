@@ -12,8 +12,8 @@ const GeneralLayout: React.FC<GeneralLayoutProps> = ({ children }) => {
 
   const hasToken = useCallback(() => {
     const token = localStorage.getItem('token');
-    if (!token) {
-      routeTo('/signin');
+    if (token !== null) {
+      routeTo('/');
       return;
     }
   }, []);
