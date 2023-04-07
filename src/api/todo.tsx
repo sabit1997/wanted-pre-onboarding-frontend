@@ -1,7 +1,7 @@
 import { BASE_URL } from './const';
 
 interface TodoRequest {
-  task: string;
+  todo: string;
 }
 const access_token = localStorage.getItem('token');
 
@@ -14,6 +14,8 @@ export const createTodo = async (args: TodoRequest) => {
     },
     body: JSON.stringify(args),
   });
+  const createTodoData = await createTodoRes.json();
+  console.log(createTodoData);
 };
 
 export const getTodos = async (id: number) => {
