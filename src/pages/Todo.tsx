@@ -1,4 +1,4 @@
-import { createTodo, getTodos } from 'api/todo';
+import { createTodo, getTodos, UpdateRequest, updateTodo } from 'api/todo';
 import { useEffect, useState, useRef } from 'react';
 
 interface Todos {
@@ -24,6 +24,10 @@ export default function Todo() {
     if (todoInputRef.current) {
       todoInputRef.current.value = '';
     }
+  };
+
+  const completeButtonHandler = async (id: number, args: UpdateRequest) => {
+    const completeResult = await updateTodo(id, args);
   };
 
   useEffect(() => {
@@ -56,7 +60,16 @@ export default function Todo() {
             {todos.map((element) => {
               return (
                 <li key={element.id}>
-                  <button>{element.isCompleted ? '💖' : '🖤'}</button>
+                  <button
+                    onClick={() =>
+                      completeButtonHandler(element.id, {
+                        todo: element.todo,
+                        isCompleted: !element.isCompleted,
+                      })
+                    }
+                  >
+                    {element.isCompleted ? '💖' : '🖤'}
+                  </button>
                   {element.todo}
                   <button type="button" className="todo-submit-button">
                     수정
