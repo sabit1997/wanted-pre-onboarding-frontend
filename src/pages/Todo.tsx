@@ -55,9 +55,16 @@ export default function Todo() {
           <ul>
             {todos.map((element) => {
               return (
-                <li key={element.id}>{`${element.isCompleted ? '💖 ' : '🖤 '} ${
-                  element.todo
-                }`}</li>
+                <li key={element.id}>
+                  <button>{element.isCompleted ? '💖' : '🖤'}</button>
+                  {element.todo}
+                  <button type="button" className="todo-submit-button">
+                    수정
+                  </button>
+                  <button type="button" className="todo-submit-button">
+                    삭제
+                  </button>
+                </li>
               );
             })}
           </ul>
