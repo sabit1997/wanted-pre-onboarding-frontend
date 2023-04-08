@@ -1,6 +1,17 @@
-import { createTodo } from 'api/todo';
+import { createTodo, getTodos } from 'api/todo';
+import { useEffect, useState, useRef } from 'react';
 
-export default function Home() {
+interface Todos {
+  id: number;
+  isCompleted: boolean;
+  todo: string;
+  userId: number;
+}
+
+export default function Todo() {
+  const [todos, setTodos] = useState<Todos[]>([]);
+  const todoInputRef = useRef<HTMLInputElement>(null);
+
   const todoSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -9,7 +20,20 @@ export default function Home() {
     const todoResult = await createTodo({
       todo: formData.get('task') as string,
     });
+
+    if (todoInputRef.current) {
+      todoInputRef.current.value = '';
+    }
   };
+
+  useEffect(() => {
+    const getTodoData = async () => {
+      const getTodosResult = await getTodos();
+      setTodos(getTodosResult);
+    };
+    getTodoData();
+  }, [todoSubmitHandler]);
+
   return (
     <div className="page-wrapper">
       <header className="page-header">
@@ -18,14 +42,24 @@ export default function Home() {
       {localStorage.getItem('token') !== null ? (
         <main className="page-main">
           <form className="todo-form" onSubmit={todoSubmitHandler}>
-            <input type="text" className="todo-input" name="task" />
+            <input
+              type="text"
+              className="todo-input"
+              name="task"
+              ref={todoInputRef}
+            />
             <button type="submit" className="todo-submit-button">
               작성
             </button>
           </form>
           <ul>
-            <li>💖 해낸 일</li>
-            <li>🖤 못한 일</li>
+            {todos.map((element) => {
+              return (
+                <li key={element.id}>{`${element.isCompleted ? '💖 ' : '🖤 '} ${
+                  element.todo
+                }`}</li>
+              );
+            })}
           </ul>
         </main>
       ) : (
