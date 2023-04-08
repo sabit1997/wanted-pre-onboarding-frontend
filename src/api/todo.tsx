@@ -30,7 +30,7 @@ export const getTodos = async () => {
   return TodosData;
 };
 
-interface UpdateRequest {
+export interface UpdateRequest {
   todo: string;
   isCompleted: boolean;
 }
