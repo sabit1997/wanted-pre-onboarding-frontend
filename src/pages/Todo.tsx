@@ -5,9 +5,10 @@ import {
   updateTodo,
   deleteTodo,
 } from 'api/todo';
+import Modal from 'components/Modal';
 import { useEffect, useState, useRef } from 'react';
 
-interface Todos {
+export interface Todos {
   id: number;
   isCompleted: boolean;
   todo: string;
@@ -17,6 +18,13 @@ interface Todos {
 export default function Todo() {
   const [todos, setTodos] = useState<Todos[]>([]);
   const todoInputRef = useRef<HTMLInputElement>(null);
+  const [editTodo, setEditTodo] = useState<Todos>({
+    id: 0,
+    isCompleted: false,
+    todo: '',
+    userId: 0,
+  });
+  const [editModal, setEditModal] = useState(false);
 
   const todoSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,6 +48,11 @@ export default function Todo() {
     const deleteTodoResult = await deleteTodo(id);
   };
 
+  const updateTodoButtonHandler = (todoValue: Todos) => {
+    setEditTodo(todoValue);
+    setEditModal(true);
+  };
+
   useEffect(() => {
     const getTodoData = async () => {
       const getTodosResult = await getTodos();
@@ -50,6 +63,13 @@ export default function Todo() {
 
   return (
     <div className="page-wrapper">
+      {editModal && (
+        <Modal
+          editTodo={editTodo}
+          setEditModal={setEditModal}
+          setEditTodo={setEditTodo}
+        />
+      )}
       <header className="page-header">
         <h1 className="page-title">To Do</h1>
       </header>
@@ -81,7 +101,13 @@ export default function Todo() {
                     {element.isCompleted ? '💖' : '🖤'}
                   </button>
                   {element.todo}
-                  <button type="button" className="todo-submit-button">
+                  <button
+                    type="button"
+                    className="todo-submit-button"
+                    onClick={() => {
+                      updateTodoButtonHandler(element);
+                    }}
+                  >
                     수정
                   </button>
                   <button
