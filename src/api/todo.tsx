@@ -18,7 +18,7 @@ export const createTodo = async (args: TodoRequest) => {
   console.log(createTodoData);
 };
 
-export const getTodos = async (id: number) => {
+export const getTodos = async () => {
   const getTodosRes = await fetch(`${BASE_URL}todos`, {
     method: 'GET',
     headers: {
