@@ -1,4 +1,10 @@
-import { createTodo, getTodos, UpdateRequest, updateTodo } from 'api/todo';
+import {
+  createTodo,
+  getTodos,
+  UpdateRequest,
+  updateTodo,
+  deleteTodo,
+} from 'api/todo';
 import { useEffect, useState, useRef } from 'react';
 
 interface Todos {
@@ -28,6 +34,10 @@ export default function Todo() {
 
   const completeButtonHandler = async (id: number, args: UpdateRequest) => {
     const completeResult = await updateTodo(id, args);
+  };
+
+  const deleteTodoButtonHandler = async (id: number) => {
+    const deleteTodoResult = await deleteTodo(id);
   };
 
   useEffect(() => {
@@ -74,7 +84,13 @@ export default function Todo() {
                   <button type="button" className="todo-submit-button">
                     수정
                   </button>
-                  <button type="button" className="todo-submit-button">
+                  <button
+                    type="button"
+                    className="todo-submit-button"
+                    onClick={() => {
+                      deleteTodoButtonHandler(element.id);
+                    }}
+                  >
                     삭제
                   </button>
                 </li>
