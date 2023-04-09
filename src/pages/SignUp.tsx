@@ -10,25 +10,29 @@ export default function SignUp() {
             <label htmlFor="email" className="input-title">
               e-mail
             </label>
-            <input type="email" id="email" className="input-section" />
+            <input
+              type="email"
+              id="email"
+              className="input-section"
+              data-testid="email-input"
+            />
           </div>
           <div className="input-wrap">
             <label htmlFor="password" className="input-title">
               password
             </label>
-            <input type="password" id="password" className="input-section" />
-          </div>
-          <div className="input-wrap">
-            <label htmlFor="password-confirm" className="input-title">
-              password confirm
-            </label>
             <input
               type="password"
-              id="password-confirm"
+              id="password"
               className="input-section"
+              data-testid="password-input"
             />
           </div>
-          <button type="submit" className="form-button">
+          <button
+            type="submit"
+            className="form-button"
+            data-testid="signup-button"
+          >
             회원가입
           </button>
         </form>
