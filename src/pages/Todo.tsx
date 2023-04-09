@@ -89,41 +89,42 @@ export default function Todo() {
             </button>
           </form>
           <ul>
-            {todos.map((element) => {
-              return (
-                <li key={element.id}>
-                  <button
-                    onClick={() =>
-                      completeButtonHandler(element.id, {
-                        todo: element.todo,
-                        isCompleted: !element.isCompleted,
-                      })
-                    }
-                  >
-                    {element.isCompleted ? '💖' : '🖤'}
-                  </button>
-                  {element.todo}
-                  <button
-                    type="button"
-                    className="todo-submit-button"
-                    onClick={() => {
-                      updateTodoButtonHandler(element);
-                    }}
-                  >
-                    수정
-                  </button>
-                  <button
-                    type="button"
-                    className="todo-submit-button"
-                    onClick={() => {
-                      deleteTodoButtonHandler(element.id);
-                    }}
-                  >
-                    삭제
-                  </button>
-                </li>
-              );
-            })}
+            {todos &&
+              todos.map((element) => {
+                return (
+                  <li key={element.id}>
+                    <button
+                      onClick={() =>
+                        completeButtonHandler(element.id, {
+                          todo: element.todo,
+                          isCompleted: !element.isCompleted,
+                        })
+                      }
+                    >
+                      {element.isCompleted ? '💖' : '🖤'}
+                    </button>
+                    {element.todo}
+                    <button
+                      type="button"
+                      className="todo-submit-button"
+                      onClick={() => {
+                        updateTodoButtonHandler(element);
+                      }}
+                    >
+                      수정
+                    </button>
+                    <button
+                      type="button"
+                      className="todo-submit-button"
+                      onClick={() => {
+                        deleteTodoButtonHandler(element.id);
+                      }}
+                    >
+                      삭제
+                    </button>
+                  </li>
+                );
+              })}
           </ul>
         </main>
       ) : (
