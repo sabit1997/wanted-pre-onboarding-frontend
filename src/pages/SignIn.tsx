@@ -125,6 +125,9 @@ export default function SignIn() {
             로그인
           </button>
         </form>
+        <button type="button" onClick={() => routeTo('/signup')}>
+          회원가입
+        </button>
       </main>
     </div>
   );
