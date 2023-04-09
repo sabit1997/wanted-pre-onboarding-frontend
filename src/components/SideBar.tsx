@@ -7,6 +7,7 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = ({ sidebarContent }) => {
   const { currentPath, routeTo } = useRouter();
+  const token = localStorage.getItem('token');
 
   const sidebarMenuClickHandler = (path: string) => {
     routeTo(path);
@@ -27,16 +28,18 @@ const SideBar: React.FC<SideBarProps> = ({ sidebarContent }) => {
           );
         })}
       </ul>
-      <div
-        onClick={() => {
-          if (localStorage.getItem('token') !== null) {
-            localStorage.removeItem('token');
-            routeTo('/signin');
-          }
-        }}
-      >
-        Logout
-      </div>
+      {token === null ? null : (
+        <div
+          onClick={() => {
+            if (token !== null) {
+              localStorage.removeItem('token');
+              routeTo('/signin');
+            }
+          }}
+        >
+          Logout
+        </div>
+      )}
     </div>
   );
 };
