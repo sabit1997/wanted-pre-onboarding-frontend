@@ -11,6 +11,7 @@ interface RouterElement {
   path: string;
   label: string;
   element: React.ReactNode;
+  withAuth?: boolean;
 }
 
 const routerData: RouterElement[] = [
@@ -19,33 +20,44 @@ const routerData: RouterElement[] = [
     path: '/',
     label: 'Home',
     element: <Home />,
+    withAuth: false,
   },
   {
     id: 1,
     path: '/todo',
     label: 'Todo',
     element: <Todo />,
+    withAuth: true,
   },
   {
     id: 2,
     path: '/signin',
     label: 'SignIn',
     element: <SignIn />,
+    withAuth: false,
   },
   {
     id: 3,
     path: '/signup',
     label: 'SignUp',
     element: <SignUp />,
+    withAuth: false,
   },
 ];
 
 export const routers: RemixRouter = createBrowserRouter(
   routerData.map((router) => {
-    return {
-      path: router.path,
-      element: <GeneralLayout>{router.element}</GeneralLayout>,
-    };
+    if (router.withAuth) {
+      return {
+        path: router.path,
+        element: <GeneralLayout>{router.element}</GeneralLayout>,
+      };
+    } else {
+      return {
+        path: router.path,
+        element: router.element,
+      };
+    }
   })
 );
 
@@ -57,6 +69,7 @@ export interface SidebarElement {
 
 export const SidebarContent: SidebarElement[] = routerData.reduce(
   (prev, router) => {
+    if (!router.withAuth) return prev;
     return [
       ...prev,
       {
