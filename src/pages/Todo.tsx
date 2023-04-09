@@ -54,11 +54,13 @@ export default function Todo() {
   };
 
   useEffect(() => {
-    const getTodoData = async () => {
-      const getTodosResult = await getTodos();
-      setTodos(getTodosResult);
-    };
-    getTodoData();
+    if (localStorage.getItem('token') !== null) {
+      const getTodoData = async () => {
+        const getTodosResult = await getTodos();
+        setTodos(getTodosResult);
+      };
+      getTodoData();
+    }
   }, [todoSubmitHandler]);
 
   return (
