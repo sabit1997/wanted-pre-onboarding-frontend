@@ -121,7 +121,7 @@ export default function SignUp() {
               emailValid === 'fail' || passwordValid === 'fail' ? true : false
             }
           >
-            로그인
+            회원가입
           </button>
         </form>
       </main>
