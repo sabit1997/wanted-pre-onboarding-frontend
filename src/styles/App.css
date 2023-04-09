@@ -1,3 +1,4 @@
+/* 공통적인 스타일 */
 .page-wrapper {
   text-align: center;
   width: 100%;
@@ -16,6 +17,21 @@
   width: 100%;
   padding-top: 50px;
 }
+
+.button {
+  border-radius: 5px;
+  background-color: #9f86c0;
+  color: #fff;
+}
+
+/* home 페이지 스타일 */
+
+.move-button {
+  width: 250px;
+  height: 40px;
+}
+
+/* auth 페이지 스타일 */
 
 .input-wrap {
   margin-bottom: 5px;
@@ -49,10 +65,9 @@
 .form-button {
   width: 250px;
   height: 30px;
-  border-radius: 5px;
-  background-color: #9f86c0;
-  color: #fff;
 }
+
+/* todo 스타일 */
 
 .todo-form {
   margin-bottom: 20px;
@@ -118,6 +133,11 @@
   margin-bottom: 5px;
 }
 
+.current-sidebar-menu {
+  background-color: #9f86c0;
+  color: #fff;
+}
+
 .sidebar .sidebar-list .sidebar-menu:last-child {
   margin-bottom: 0;
 }
@@ -126,6 +146,8 @@
   background-color: #9f86c0;
   color: #fff;
 }
+
+/* general-layout 스타일 */
 
 .general-layout {
   height: 100vh;
