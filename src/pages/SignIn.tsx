@@ -46,7 +46,7 @@ export default function SignIn() {
       alert('로그인 실패');
       return;
     }
-    routeTo('/');
+    routeTo('/todo');
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
