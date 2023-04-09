@@ -29,7 +29,7 @@ const SideBar: React.FC<SideBarProps> = ({ sidebarContent }) => {
       </ul>
       <div
         onClick={() => {
-          if (localStorage.getItem('toekn') !== null) {
+          if (localStorage.getItem('token') !== null) {
             localStorage.removeItem('token');
             routeTo('/signin');
           }
