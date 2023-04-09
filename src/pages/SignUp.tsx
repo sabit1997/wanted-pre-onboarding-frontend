@@ -115,7 +115,7 @@ export default function SignUp() {
           </div>
           <button
             type="submit"
-            className="form-button"
+            className="button form-button"
             data-testid="signup-button"
             disabled={
               emailValid === 'fail' || passwordValid === 'fail' ? true : false

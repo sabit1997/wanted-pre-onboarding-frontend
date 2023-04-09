@@ -20,7 +20,11 @@ const SideBar: React.FC<SideBarProps> = ({ sidebarContent }) => {
           return (
             <li
               key={element.path}
-              className="sidebar-menu"
+              className={
+                currentPath === element.path
+                  ? 'sidebar-menu current-sidebar-menu'
+                  : 'sidebar-menu'
+              }
               onClick={() => sidebarMenuClickHandler(element.path)}
             >
               {element.label}
