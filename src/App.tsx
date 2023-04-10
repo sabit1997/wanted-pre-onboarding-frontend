@@ -4,9 +4,14 @@ import './styles/reset.css';
 import './styles/global.css';
 import './styles/App.css';
 import { routers } from 'router';
+import { AuthProvider } from 'context/AuthContext';
 
 function App() {
-  return <RouterProvider router={routers} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={routers} />
+    </AuthProvider>
+  );
 }
 
 export default App;

@@ -5,7 +5,14 @@ import {
   updateTodo,
   deleteTodo,
 } from 'api/todo';
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { AuthContext } from 'context/AuthContext';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useContext,
+} from 'react';
 
 export interface Todos {
   id: number;
@@ -16,6 +23,7 @@ export interface Todos {
 }
 
 export default function Todo() {
+  const { token } = useContext(AuthContext);
   const [todos, setTodos] = useState<Todos[]>([]);
   const todoInputRef = useRef<HTMLInputElement>(null);
 
@@ -24,9 +32,12 @@ export default function Todo() {
 
     const formData = new FormData(e.currentTarget);
 
-    const todoResult = await createTodo({
-      todo: formData.get('task') as string,
-    });
+    const todoResult = await createTodo(
+      {
+        todo: formData.get('task') as string,
+      },
+      token
+    );
 
     if (todoInputRef.current) {
       todoInputRef.current.value = '';
@@ -35,7 +46,7 @@ export default function Todo() {
   };
 
   const completeButtonHandler = async (id: number, args: UpdateRequest) => {
-    const completeResult = await updateTodo(id, args);
+    const completeResult = await updateTodo(id, args, token);
     const updateResult = todos.map((element) =>
       element.id === id
         ? { ...element, isCompleted: args.isCompleted }
@@ -45,7 +56,7 @@ export default function Todo() {
   };
 
   const deleteTodoButtonHandler = async (id: number) => {
-    const deleteTodoResult = await deleteTodo(id);
+    const deleteTodoResult = await deleteTodo(id, token);
     getTodoDataUpdate();
   };
 
@@ -71,29 +82,34 @@ export default function Todo() {
   ) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const updateSubmitResult = await updateTodo(id, {
-      todo: formData.get('update-todo-input') as string,
-      isCompleted: isCompleted,
-    });
+    const updateSubmitResult = await updateTodo(
+      id,
+      {
+        todo: formData.get('update-todo-input') as string,
+        isCompleted: isCompleted,
+      },
+      token
+    );
     cancelUpdateButtonHandler(index);
     getTodoDataUpdate();
   };
 
   const getTodoDataUpdate = useCallback(async () => {
-    const getTodosResult = await getTodos();
+    const getTodosResult = await getTodos(token);
     setTodos(getTodosResult);
   }, [setTodos, todos]);
 
   // 처음에 todo data 렌더링 해오기
   useEffect(() => {
     const getTodoData = async () => {
-      const getTodosResult = await getTodos();
+      const getTodosResult = await getTodos(token);
       setTodos(getTodosResult);
     };
-    if (localStorage.getItem('token') !== null && todos.length === 0) {
+    if (token !== null && todos.length === 0) {
       getTodoData();
+      console.log('나 실행!');
     }
-  }, []);
+  }, [token]);
   console.log(todos);
 
   return (
@@ -101,7 +117,7 @@ export default function Todo() {
       <header className="page-header">
         <h1 className="page-title">To Do</h1>
       </header>
-      {localStorage.getItem('token') !== null ? (
+      {token !== null ? (
         <main className="page-main">
           <form className="todo-form" onSubmit={todoSubmitHandler}>
             <input

@@ -1,4 +1,6 @@
+import { AuthContext } from 'context/AuthContext';
 import { useRouter } from 'hooks/useRouter';
+import { useContext } from 'react';
 import { SidebarElement } from 'router';
 
 interface SideBarProps {
@@ -7,7 +9,7 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = ({ sidebarContent }) => {
   const { currentPath, routeTo } = useRouter();
-  const token = localStorage.getItem('token');
+  const { token, logout } = useContext(AuthContext);
 
   const sidebarMenuClickHandler = (path: string) => {
     routeTo(path);
@@ -36,7 +38,7 @@ const SideBar: React.FC<SideBarProps> = ({ sidebarContent }) => {
         <div
           onClick={() => {
             if (token !== null) {
-              localStorage.removeItem('token');
+              logout();
               routeTo('/signin');
             }
           }}

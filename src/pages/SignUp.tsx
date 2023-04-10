@@ -1,10 +1,12 @@
 import { singUp } from 'api/auth';
+import { AuthContext } from 'context/AuthContext';
 import { useRouter } from 'hooks/useRouter';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 type VaildResult = 'pass' | 'fail' | '';
 
 export default function SignUp() {
+  const { token } = useContext(AuthContext);
   const { routeTo } = useRouter();
   const [emailValid, setEmailVaild] = useState<VaildResult>('');
   const [passwordValid, setPasswordValid] = useState<VaildResult>('');
@@ -30,8 +32,8 @@ export default function SignUp() {
   const signUpSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (localStorage.getItem('token')) {
-      routeTo('/');
+    if (token !== null) {
+      routeTo('/todo');
       return;
     }
 
