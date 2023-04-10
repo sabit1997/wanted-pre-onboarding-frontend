@@ -27,7 +27,7 @@ export default function SignUp() {
     }
   };
 
-  const loginSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+  const signUpSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (localStorage.getItem('token')) {
@@ -37,12 +37,12 @@ export default function SignUp() {
 
     const formData = new FormData(e.currentTarget);
 
-    const loginResult = await singUp({
+    const signUpResult = await singUp({
       email: formData.get('email') as string,
       password: formData.get('password') as string,
     });
 
-    if (loginResult === 'fail') {
+    if (signUpResult === 'fail') {
       alert('회원가입 실패');
       return;
     }
@@ -74,7 +74,7 @@ export default function SignUp() {
         <h1 className="page-title">Sign Up</h1>
       </header>
       <main className="page-main">
-        <form onSubmit={loginSubmitHandler}>
+        <form onSubmit={signUpSubmitHandler}>
           <div className="input-wrap">
             <label htmlFor="email" className="input-title">
               e-mail
