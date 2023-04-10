@@ -3,14 +3,13 @@ import { BASE_URL } from './const';
 interface TodoRequest {
   todo: string;
 }
-const access_token = localStorage.getItem('token');
 
-export const createTodo = async (args: TodoRequest) => {
+export const createTodo = async (args: TodoRequest, token: string | null) => {
   const createTodoRes = await fetch(`${BASE_URL}todos`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${access_token}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(args),
   });
@@ -18,12 +17,12 @@ export const createTodo = async (args: TodoRequest) => {
   console.log(createTodoData);
 };
 
-export const getTodos = async () => {
+export const getTodos = async (token: string | null) => {
   const getTodosRes = await fetch(`${BASE_URL}todos`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${access_token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
   const TodosData = await getTodosRes.json();
@@ -35,23 +34,27 @@ export interface UpdateRequest {
   isCompleted: boolean;
 }
 
-export const updateTodo = async (id: number, args: UpdateRequest) => {
+export const updateTodo = async (
+  id: number,
+  args: UpdateRequest,
+  token: string | null
+) => {
   const updateTodoRes = await fetch(`${BASE_URL}todos/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${access_token}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(args),
   });
 };
 
-export const deleteTodo = async (id: number) => {
+export const deleteTodo = async (id: number, token: string | null) => {
   const deleteTodoRes = await fetch(`${BASE_URL}todos/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${access_token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 };
