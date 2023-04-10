@@ -159,13 +159,19 @@ export default function Todo() {
                           type="text"
                           defaultValue={element.todo}
                           name="update-todo-input"
+                          data-testid="modify-input"
                         />
-                        <button type="submit" className="todo-submit-button">
+                        <button
+                          type="submit"
+                          className="todo-submit-button"
+                          data-testid="submit-button"
+                        >
                           제출
                         </button>
                         <button
                           type="button"
                           className="todo-submit-button"
+                          data-testid="cancel-button"
                           onClick={() => {
                             cancelUpdateButtonHandler(index);
                           }}
@@ -178,6 +184,7 @@ export default function Todo() {
                         <button
                           type="button"
                           className="todo-submit-button"
+                          data-testid="modify-button"
                           onClick={() => {
                             updateTodoButtonHandler(index);
                           }}
@@ -187,6 +194,7 @@ export default function Todo() {
                         <button
                           type="button"
                           className="todo-submit-button"
+                          data-testid="delete-button"
                           onClick={() => {
                             deleteTodoButtonHandler(element.id);
                           }}
