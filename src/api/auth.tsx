@@ -1,6 +1,6 @@
 import { BASE_URL } from './const';
 
-type AuthResult = 'success' | 'fail';
+export type AuthResult = 'success' | 'fail';
 
 export interface AuthRequest {
   email: string;
@@ -17,21 +17,4 @@ export const singUp = async (args: AuthRequest): Promise<AuthResult> => {
   });
 
   return SignUpRes.ok ? 'success' : 'fail';
-};
-
-export const login: (args: AuthRequest) => Promise<AuthResult> = async (
-  args
-) => {
-  const loginRes = await fetch(`${BASE_URL}auth/signin`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(args),
-  });
-  const loginData = await loginRes.json();
-  if (loginRes.ok) {
-    localStorage.setItem('token', loginData.access_token);
-  }
-  return loginRes.ok ? 'success' : 'fail';
 };
