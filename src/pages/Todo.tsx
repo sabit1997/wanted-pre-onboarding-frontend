@@ -31,6 +31,7 @@ export default function Todo() {
     if (todoInputRef.current) {
       todoInputRef.current.value = '';
     }
+    getTodoDataUpdate();
   };
 
   const completeButtonHandler = async (id: number, args: UpdateRequest) => {
