@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { Router as RemixRouter } from '@remix-run/router/dist/router';
 import Todo from 'pages/Todo';
 import SignUp from 'pages/SignUp';
 import SignIn from 'pages/SignIn';
@@ -45,7 +44,7 @@ const routerData: RouterElement[] = [
   },
 ];
 
-export const routers: RemixRouter = createBrowserRouter(
+export const routers = createBrowserRouter(
   routerData.map((router) => {
     if (router.withAuth) {
       return {
