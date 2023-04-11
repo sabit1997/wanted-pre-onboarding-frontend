@@ -1,15 +1,20 @@
 import { BASE_URL } from './const';
 
-interface TodoRequest {
-  todo: string;
+type TodoRequest = string;
+
+type Token = string | null;
+
+interface CreateTodoRequest {
+  todo: TodoRequest;
+  token: Token;
 }
 
-export const createTodo = async (args: TodoRequest, token: string | null) => {
+export const createTodo = async (args: CreateTodoRequest) => {
   const createTodoRes = await fetch(`${BASE_URL}todos`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${args.token}`,
     },
     body: JSON.stringify(args),
   });
@@ -17,7 +22,7 @@ export const createTodo = async (args: TodoRequest, token: string | null) => {
   console.log(createTodoData);
 };
 
-export const getTodos = async (token: string | null) => {
+export const getTodos = async (token: Token) => {
   const getTodosRes = await fetch(`${BASE_URL}todos`, {
     method: 'GET',
     headers: {
@@ -30,26 +35,24 @@ export const getTodos = async (token: string | null) => {
 };
 
 export interface UpdateRequest {
+  id: number;
   todo: string;
   isCompleted: boolean;
+  token: Token;
 }
 
-export const updateTodo = async (
-  id: number,
-  args: UpdateRequest,
-  token: string | null
-) => {
-  await fetch(`${BASE_URL}todos/${id}`, {
+export const updateTodo = async (args: UpdateRequest) => {
+  await fetch(`${BASE_URL}todos/${args.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${args.token}`,
     },
     body: JSON.stringify(args),
   });
 };
 
-export const deleteTodo = async (id: number, token: string | null) => {
+export const deleteTodo = async (id: number, token: Token) => {
   await fetch(`${BASE_URL}todos/${id}`, {
     method: 'DELETE',
     headers: {
