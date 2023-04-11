@@ -1,10 +1,4 @@
-import {
-  createTodo,
-  getTodos,
-  UpdateRequest,
-  updateTodo,
-  deleteTodo,
-} from 'api/todo';
+import { createTodo, getTodos, updateTodo, deleteTodo } from 'api/todo';
 import { AuthContext } from 'context/AuthContext';
 import React, {
   useEffect,
@@ -32,12 +26,10 @@ export default function Todo() {
 
     const formData = new FormData(e.currentTarget);
 
-    await createTodo(
-      {
-        todo: formData.get('task') as string,
-      },
-      token
-    );
+    await createTodo({
+      todo: formData.get('task') as string,
+      token: token,
+    });
 
     if (todoInputRef.current) {
       todoInputRef.current.value = '';
@@ -45,10 +37,21 @@ export default function Todo() {
     getTodoDataUpdate();
   };
 
-  const completeButtonHandler = async (id: number, args: UpdateRequest) => {
-    await updateTodo(id, args, token);
+  interface CompleteButtonRequest {
+    id: number;
+    todo: string;
+    isCompleted: boolean;
+  }
+
+  const completeButtonHandler = async (args: CompleteButtonRequest) => {
+    await updateTodo({
+      id: args.id,
+      todo: args.todo,
+      isCompleted: args.isCompleted,
+      token: token,
+    });
     const updateResult = todos.map((element) =>
-      element.id === id
+      element.id === args.id
         ? { ...element, isCompleted: args.isCompleted }
         : element
     );
@@ -82,14 +85,12 @@ export default function Todo() {
   ) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    await updateTodo(
+    await updateTodo({
       id,
-      {
-        todo: formData.get('update-todo-input') as string,
-        isCompleted: isCompleted,
-      },
-      token
-    );
+      todo: formData.get('update-todo-input') as string,
+      isCompleted: isCompleted,
+      token,
+    });
     cancelUpdateButtonHandler(index);
     getTodoDataUpdate();
   };
@@ -152,7 +153,8 @@ export default function Todo() {
                         id="todo-check"
                         className="ir"
                         onClick={(e: React.MouseEvent<HTMLInputElement>) =>
-                          completeButtonHandler(element.id, {
+                          completeButtonHandler({
+                            id: element.id,
                             todo: element.todo,
                             isCompleted: e.currentTarget.checked,
                           })
