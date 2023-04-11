@@ -2,6 +2,7 @@ import { singUp } from 'api/auth';
 import { AuthContext } from 'context/AuthContext';
 import { useRouter } from 'hooks/useRouter';
 import React, { useContext, useState } from 'react';
+import { vaildateEmail, vaildatePassword } from 'utils/validations';
 
 type VaildResult = 'pass' | 'fail' | '';
 
@@ -10,24 +11,6 @@ export default function SignUp() {
   const { routeTo } = useRouter();
   const [emailValid, setEmailVaild] = useState<VaildResult>('');
   const [passwordValid, setPasswordValid] = useState<VaildResult>('');
-
-  const vaildateEmail = (email: string) => {
-    const emailPattern = /@/;
-
-    if (emailPattern.test(email)) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  const vaildatePassword = (password: string) => {
-    if (password.length < 8) {
-      return false;
-    } else {
-      return true;
-    }
-  };
 
   const signUpSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
