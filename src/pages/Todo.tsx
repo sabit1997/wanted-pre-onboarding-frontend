@@ -32,7 +32,7 @@ export default function Todo() {
 
     const formData = new FormData(e.currentTarget);
 
-    const todoResult = await createTodo(
+    await createTodo(
       {
         todo: formData.get('task') as string,
       },
@@ -46,7 +46,7 @@ export default function Todo() {
   };
 
   const completeButtonHandler = async (id: number, args: UpdateRequest) => {
-    const completeResult = await updateTodo(id, args, token);
+    await updateTodo(id, args, token);
     const updateResult = todos.map((element) =>
       element.id === id
         ? { ...element, isCompleted: args.isCompleted }
@@ -56,7 +56,7 @@ export default function Todo() {
   };
 
   const deleteTodoButtonHandler = async (id: number) => {
-    const deleteTodoResult = await deleteTodo(id, token);
+    await deleteTodo(id, token);
     getTodoDataUpdate();
   };
 
@@ -82,7 +82,7 @@ export default function Todo() {
   ) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const updateSubmitResult = await updateTodo(
+    await updateTodo(
       id,
       {
         todo: formData.get('update-todo-input') as string,

@@ -39,7 +39,7 @@ export const updateTodo = async (
   args: UpdateRequest,
   token: string | null
 ) => {
-  const updateTodoRes = await fetch(`${BASE_URL}todos/${id}`, {
+  await fetch(`${BASE_URL}todos/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export const updateTodo = async (
 };
 
 export const deleteTodo = async (id: number, token: string | null) => {
-  const deleteTodoRes = await fetch(`${BASE_URL}todos/${id}`, {
+  await fetch(`${BASE_URL}todos/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
