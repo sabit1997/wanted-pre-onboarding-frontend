@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { AuthRequest, AuthResult } from 'api/auth';
 import { BASE_URL } from 'api/const';
 
@@ -47,6 +47,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setToken(null);
     localStorage.removeItem('token');
   };
+
+  // 임의로 token을 지웠을 때 token 값 null로 바꾸기
+  useEffect(() => {
+    const handleStorage = (event: StorageEvent) => {
+      if (
+        event.storageArea === localStorage &&
+        event.key === 'token' &&
+        !event.newValue
+      ) {
+        setToken(null);
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+
+    return () => {
+      window.removeEventListener('storage', handleStorage);
+    };
+  }, []);
 
   return (
     <AuthContext.Provider value={{ token, login, logout }}>
