@@ -133,7 +133,7 @@ export default function Todo() {
               className="todo-submit-button"
               data-testid="new-todo-add-button"
             >
-              작성
+              추가
             </button>
           </form>
           <ul>
